@@ -3,8 +3,10 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const Images = require('../models/Images')
 const User = require('../models/user');
-const compressImage = require('../utils/imageCompress');
+const { compressImage } = require('../utils/image');
 const multer = require('multer');
+const OriginalImages = require('../models/OriginalImages');
+const { saveOriginalImage, saveCompressedImage } = require('../services/imageService');
 const upload = multer({ dest: 'uploads/' });
 
 const postImagesValidations = [
@@ -25,33 +27,21 @@ const putImagesValidations = [
 // Endpoint to post an image.
 router.post('/', upload.single('image'), async (req, res) => {
 
-
     try {
 
         const { path: imagePath, originalname } = req.file;
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     return res.status(400).json({ errors: errors.array() });
-        // }
 
-        // const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.body.userId);
 
-        // if (!user) return res.status(404).json({ error: "user does not exist" });
+        if (!user) return res.status(404).json({ error: "user does not exist" });
 
+        // Save original image
+        const originalImageId = await saveOriginalImage(imagePath, req)
 
-        // console.log("this is it", req.file)
-        // console.log("this is body", req.body)
+        // Save compressed replica of image 
+        await saveCompressedImage(imagePath, req, originalImageId)
 
-        const compresedImage = await compressImage(imagePath)
-
-        // console.log(compresedImage)
-
-        Images.create({
-            user: req.body.userId,
-            title: req.body.title,
-            image: compresedImage,
-            tag: req.body.tag,
-        }).then(image => res.json(image));
+        res.json({ data: "success" })
 
     } catch (error) {
         console.log("error in adding image", error)
@@ -65,6 +55,15 @@ router.get('/:userId', async (req, res) => {
 
     const images = await Images.find({ user: req.params.userId });
     res.json(images);
+
+})
+
+
+// API to get all Images of a user
+router.get('/getImg/:imgId', async (req, res) => {
+
+    const image = await OriginalImages.findById(req.params.imgId);
+    res.json(image);
 
 })
 

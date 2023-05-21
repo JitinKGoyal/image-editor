@@ -1,11 +1,11 @@
-
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PreviewInEditor from './PreviewInEditor';
 import Sidebar from './Sidebar';
+import { useLocation } from 'react-router-dom';
 
 function ImageEditor(props) {
 
-  
+    const location = useLocation()
 
     return (
         <>
@@ -13,10 +13,9 @@ function ImageEditor(props) {
 
                 <Sidebar />
 
-                <PreviewInEditor props={props} />
+                <PreviewInEditor props={props} oId={location.state} />
 
             </div>
-            
         </>
     )
 }

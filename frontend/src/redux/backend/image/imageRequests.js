@@ -40,6 +40,18 @@ export const getAllImagesRequest = async (binary) => {
     }
 }
 
+// request to get all images
+export const getOriginalImagesRequest = async (originalImageId) => {
+    try {
+        const res = await fetch(`${baseUrl}/images/getImg/${originalImageId}`)
+        const data = await res.json()
+        return data
+
+    } catch (err) {
+        console.error("error in getting image: ", err)
+    }
+}
+
 // request to delete image
 export const deleteImageRequest = async (id) => {
     try {
