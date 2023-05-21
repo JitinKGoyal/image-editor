@@ -1,0 +1,209 @@
+body {
+    background: url("/public/images/WallpaperDog-11027692.jpg"), linear-gradient(to right, #6b8981, #527069, #527069, #688b7f, #678a7f, #4d6f65);
+    background-size: 100%;
+    font-family: 'Julius Sans One', sans-serif;
+    background-repeat: no-repeat;
+}
+
+
+/* 
+Light Lime: #abd699
+
+Fresh Lemon: #ffe26a
+
+Teal: #75c9b7
+
+Mint: #c7ddcc
+
+Navy: #16123f */
+
+
+.imgLable {
+    width: fit-content;
+    padding: 100px 200px;
+    border-radius: 10px;
+    background-color: #abd69931;
+    border: 1px dashed;
+    display: block;
+    margin: 20px auto;
+    color: black;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+.imgLable:hover {
+    backdrop-filter: blur(5px);
+
+}
+
+.imgPreview {
+    width: fit-content;
+    margin: 30px auto;
+    border-radius: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+
+}
+
+.imgPreview:hover {
+    position: relative;
+    top: -5px;
+}
+
+.imgPreview img {
+    border-radius: 10px;
+}
+
+.deleteIcon {
+    background-color: rgba(255, 255, 255, 0.756);
+    padding: 10px;
+    height: fit-content;
+    position: relative;
+    right: 32px;
+    border-radius: 10px;
+    font-size: medium;
+    color: rgb(209, 6, 6);
+    box-shadow: 0 0 20px rgb(50, 50, 50);
+}
+
+.deleteIcon:hover {
+    background-color: white;
+    font-size: large;
+    right: 35px;
+}
+
+.editImage img {
+    max-height: 500px;
+    border: 20px solid rgba(255, 255, 255, 0.575);
+
+}
+
+.editImage canvas {
+    max-height: 500px;
+    border: 20px solid rgba(255, 255, 255, 0.575);
+
+}
+
+.editImage {
+    background: rgba(255, 255, 255, 0.321);
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 545px;
+}
+
+/* 
+Light Lime: #abd699
+
+Fresh Lemon: #ffe26a
+
+Teal: #75c9b7
+
+Mint: #c7ddcc
+
+Navy: #16123f */
+
+
+.heading {
+    background: -webkit-linear-gradient(#18a558, darkblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+.imgLable::file-selector-button {
+    content: "this";
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: 2px solid rgb(241, 241, 241);
+    box-shadow: 15px 15px 30px -5px rgba(220, 220, 220, 0.713) inset, 10px 10px 30px -5px rgb(176, 176, 176);
+    cursor: pointer;
+}
+
+.resizeInput {
+    padding-top: 30px;
+    height: 95px;
+    /* box-shadow: 0 0 80px -5px rgb(0, 0, 0) inset; */
+    width: 90%;
+    /* border-radius: 10px; */
+
+}
+
+.resizeInput input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin-top: 10px;
+    height: 5px;
+    background-image: linear-gradient(to right, #848484, #000000, #4a4a4a);
+    border-radius: 100px;
+}
+
+.resizeInput input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 35px;
+    width: 5px;
+    background: #c5c5c5;
+    cursor: pointer;
+    border-radius: 100px;
+    box-shadow: 0 0 20px 1px black;
+    transition: all 0.3s;
+}
+
+.resizeInput input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: white;
+    padding: 5px;
+}
+
+
+.resizeInput p {
+    font-size: 50px;
+    position: relative;
+    top: -45px;
+    letter-spacing: 30px;
+    color: #355a50b3;
+    z-index: -1;
+    font-weight: 900;
+}
+
+.percentageSize {
+    font-weight: 900;
+    color: white;
+    border-left: 1px solid;
+    padding: 20px;
+    width: 7%;
+}
+
+input,
+textarea {
+    font-family: cursive;
+}
+
+.home {
+    height: 100vh;
+    width: 100%;
+    background: url(../public/images/hd-wallpaper-2695569_1920.jpg);
+    display: flex;
+    background-size: cover;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.home span{
+    /* color: white; */
+    text-decoration: none;
+    padding: 80px 200px;
+    background-color: rgb(19, 59, 123);
+    border-radius: 3px;
+    font-size: 30px;
+    font-weight: 900;
+    color: white;
+    border: 1px dotted;
+}
+
+.home a{
+    text-decoration: none;
+}
