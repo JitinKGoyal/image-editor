@@ -6,14 +6,9 @@ const User = require('../models/user');
 const { compressImage } = require('../utils/image');
 const multer = require('multer');
 const OriginalImages = require('../models/OriginalImages');
-const { saveOriginalImage, saveCompressedImage } = require('../services/imageService');
-const upload = multer({ dest: 'uploads/' });
+const { addImageController } = require('../controllers/imageController');
 
-const postImagesValidations = [
-    body('userId', 'image can not be added without userId').exists(),
-    body('title', 'image must have a title').exists(),
-    body('image', 'image must have a image').notEmpty()
-]
+const upload = multer({ storage: multer.memoryStorage() });
 
 const deleteImagesValidations = [
     body('userId', 'image can not be deleted without userId').exists(),
@@ -25,30 +20,7 @@ const putImagesValidations = [
 ]
 
 // Endpoint to post an image.
-router.post('/', upload.single('image'), async (req, res) => {
-
-    try {
-
-        const { path: imagePath, originalname } = req.file;
-
-        const user = await User.findById(req.body.userId);
-
-        if (!user) return res.status(404).json({ error: "user does not exist" });
-
-        // Save original image
-        const originalImageId = await saveOriginalImage(imagePath, req)
-
-        // Save compressed replica of image 
-        await saveCompressedImage(imagePath, req, originalImageId)
-
-        res.json({ data: "success" })
-
-    } catch (error) {
-        console.log("error in adding image", error)
-    }
-
-})
-
+router.post('/', upload.single('image'), addImageController)
 
 // API to get all Images of a user
 router.get('/:userId', async (req, res) => {

@@ -1,12 +1,13 @@
+const { COMPRESSION_PERCENTAGE } = require("../config");
 const Images = require("../models/Images");
 const OriginalImages = require("../models/OriginalImages");
 const { compressImage } = require("../utils/image");
 
-const saveOriginalImage = async (imagePath, req) => {
+const saveOriginalImageService = async (buffer, req) => {
 
     try {
 
-        const originalImage = await compressImage(imagePath, 100)
+        const originalImage = await compressImage(buffer, 100)
 
         const imageObj = {
             user: req.body.userId,
@@ -25,11 +26,11 @@ const saveOriginalImage = async (imagePath, req) => {
 
 }
 
-const saveCompressedImage = async (imagePath, req, originalImageId) => {
+const saveCompressedImageService = async (imagePath, req, originalImageId) => {
 
     try {
 
-        const compresedImage = await compressImage(imagePath, 1)
+        const compresedImage = await compressImage(imagePath, COMPRESSION_PERCENTAGE)
 
         const imageObj = {
             user: req.body.userId,
@@ -38,8 +39,6 @@ const saveCompressedImage = async (imagePath, req, originalImageId) => {
             image: compresedImage,
             tag: req.body.tag,
         }
-
-        
 
         const res = await Images.create(imageObj)
 
@@ -51,5 +50,4 @@ const saveCompressedImage = async (imagePath, req, originalImageId) => {
 
 }
 
-
-module.exports = { saveOriginalImage, saveCompressedImage }
+module.exports = { saveOriginalImageService, saveCompressedImageService }

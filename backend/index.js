@@ -17,7 +17,6 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/images', require('./routes/images'))
 app.use('/api/notes', require('./routes/notes'))
 
-
 app.listen(port, () => {
     console.log(`cloud-notebook app listening on port ${port}`)
 })
