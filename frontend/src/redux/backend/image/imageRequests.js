@@ -27,7 +27,7 @@ export const addImageRequest = async (binary) => {
 }
 
 // request to get all images
-export const getAllImagesRequest = async (binary) => {
+export const getAllImagesRequest = async () => {
     try {
         const res = await fetch(`${baseUrl}/images/${loggedInUserId}`)
         const data = await res.json()

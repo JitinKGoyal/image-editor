@@ -20,17 +20,12 @@ function ImagePreview(props) {
 
   // Function to add an image.
   async function handleImage(e) {
-
     const files = e.target.files
-
     dispatch(addImageAction(files))
-
   }
 
   // Function to delete an image.
   const forDeleteImage = (id) => {
-    console.log(id)
-
     dispatch(deleteImageAction(id))
   }
 
@@ -43,7 +38,6 @@ function ImagePreview(props) {
 
   // useEffect for first mount of component.
   useEffect(() => {
-
     dispatch(enptyOriginalImageAction())
 
     const data = JSON.parse(localStorage.getItem("my-image-editor"));
@@ -111,7 +105,6 @@ function ImagePreview(props) {
       }</div>}
 
       <Top />
-
 
     </>
   )
