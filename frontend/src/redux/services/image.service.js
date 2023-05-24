@@ -4,8 +4,9 @@ import { addImageRequest, deleteImageRequest, getAllImagesRequest, getOriginalIm
 
 export const addImageService = async (data) => {
 
-    
-    await addImageRequest(data)
+    for (let i = 0; i < data.length; i++) {
+        await addImageRequest(data[i])
+    }
 
     notify("Image uploaded successfully", toast.TYPE.SUCCESS)
 }

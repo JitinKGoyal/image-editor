@@ -13,12 +13,10 @@ export const addImageRequest = async (binary) => {
 
         const headers = formData.getHeaders;
 
-        console.log("in request", binary)
         const response = await fetch(`${baseUrl}/images`, {
             method: "POST",
             headers,
             body: formData
-
         })
         const data = await response.json()
         return data

@@ -7,6 +7,7 @@ const { compressImage } = require('../utils/image');
 const multer = require('multer');
 const OriginalImages = require('../models/OriginalImages');
 const { addImageController } = require('../controllers/imageController');
+const { default: mongoose } = require('mongoose');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -34,13 +35,18 @@ router.get('/:userId', async (req, res) => {
 // API to get all Images of a user
 router.get('/getImg/:imgId', async (req, res) => {
 
-    const image = await OriginalImages.findById(req.params.imgId);
-    res.json(image);
+    try {
 
+        const image = await OriginalImages.findById(req.params.imgId);
+        res.json(image);
+
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 
-// API to get all Images of a user
+// API to update image of a user
 router.put('/', putImagesValidations, async (req, res) => {
 
     const errors = validationResult(req);
@@ -69,18 +75,25 @@ router.delete('/', deleteImagesValidations, (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        Images.findById(req.body.id, async (err, note) => {
+        OriginalImages.findById(req.body.id, async (err, image) => {
+
+            // console.log(image)
 
             if (err) {
                 return res.status(404).json({ error: "image does not exists" });
             }
 
-            if (note?.user?.toString() != req.body.userId) {
+            if (image?.user?.toString() != req.body.userId) {
                 return res.status(404).json({ error: "Access denied" });
             }
 
-            note = await Images.findByIdAndDelete(req.body.id);
-            res.json(note);
+            let a = await Images.deleteOne({ originalImage: mongoose.Types.ObjectId(req.body.id) });
+            let b = await OriginalImages.findByIdAndDelete(req.body.id);
+
+            console.log(a)
+            console.log(b)
+
+            res.json(true);
         });
 
     } catch (error) {

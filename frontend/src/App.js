@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Notes from './components/notes/Notes';
 import Home from './components/home/Home';
+import Top from './components/elements/Top';
 
 function App() {
 

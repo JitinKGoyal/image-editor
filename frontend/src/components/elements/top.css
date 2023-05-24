@@ -1,0 +1,28 @@
+.go_to_top a {
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 255, 0, 0.7);
+    color: white;
+    box-shadow: 0 0 30px black inset;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transition: all 2s;
+    text-decoration: none;
+    /* font-weight: bold; */
+    font-size: 12px;
+    text-transform: capitalize !important;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+*{
+    scroll-behavior: smooth;
+}
+
+.go_to_top a:hover {
+    background-color: red;
+    color: white;
+}

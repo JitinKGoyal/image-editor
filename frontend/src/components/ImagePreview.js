@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { addImageAction, deleteImageAction, enptyOriginalImageAction, getAllImagesAction, } from '../redux/actions/image.Action';
 import { notify } from '../utils/toast';
 import Spinner from './Spinner';
+import Top from './elements/Top';
 // import compressImage from '../utils/imageCompress';
 
 function ImagePreview(props) {
@@ -20,15 +21,16 @@ function ImagePreview(props) {
   // Function to add an image.
   async function handleImage(e) {
 
-    const file = e.target.files[0]
+    const files = e.target.files
 
-    dispatch(addImageAction(file))
+    dispatch(addImageAction(files))
 
   }
 
   // Function to delete an image.
-  const forDeleteImage = (i, e, id) => {
-    e.stopPropagation();
+  const forDeleteImage = (id) => {
+    console.log(id)
+
     dispatch(deleteImageAction(id))
   }
 
@@ -52,7 +54,6 @@ function ImagePreview(props) {
       navigate("/login")
     }
 
-
   }, [])
 
   // useEffect to get all images after adding and deleting image
@@ -72,18 +73,17 @@ function ImagePreview(props) {
 
   }, [allStates])
 
-  console.log(allStates)
+  // console.log(allStates)
 
   return (
     <>
-
 
       <div className='d-flex justify-content-end'>
         <button className='btn btn-info m-3 shadow' onClick={logoutBtn}><img height="25px" src="/images/icons/icons8-logout-rounded-left-60.png" alt="" />Logout</button>
       </div>
 
       <h2 className='text-center mt-3 heading' style={{ fontFamily: "'Monoton', cursive" }}>Preview</h2>
-      <input type="file" className='imgLable' id='imgId' onChange={handleImage} /><br />
+      <input type="file" multiple className='imgLable' id='imgId' onChange={handleImage} /><br />
       <hr />
 
       {isloading ? <Spinner message="Loading images..." /> : <div> {images?.length !== 0 &&
@@ -93,19 +93,25 @@ function ImagePreview(props) {
           </p>
           <div className='d-flex flex-wrap'>
 
-            {images?.map((e, i) => {
+            {images?.map((e, i) =>
 
-              return <Link key={i} to="/imageEditor" state={e.originalImage} title="Open image in editor" className='d-flex justify-content-center shadow-lg p-4 imgPreview'>
+              <div key={i} onClick={() => navigate("/imageEditor", { state: e.originalImage })} title="Open image in editor" className='d-flex justify-content-center shadow-lg p-4 imgPreview'>
                 <img src={`data:image/jpeg;base64,${e.image}`} height="200px" alt="" />
-                <div className='deleteIcon ' onClick={(k) => forDeleteImage(i, k, e._id)}>
+                <div className='deleteIcon ' onClick={(k) => {
+                  k.stopPropagation();
+                  forDeleteImage(e.originalImage)
+                }}>
                   <i className="fa fa-trash" aria-hidden="true"></i>
                 </div>
-              </Link>
+              </div>
 
-            })}
+            )}
           </div>
         </div>
       }</div>}
+
+      <Top />
+
 
     </>
   )
